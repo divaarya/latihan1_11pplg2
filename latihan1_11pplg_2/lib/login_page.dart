@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:latihan1_11pplg_2/custom_textfield.dart';
 import 'register_page.dart';
 
 
@@ -43,25 +44,18 @@ class _LoginPageState extends State<LoginPage> {
            
             Container(
               margin: EdgeInsets.only(top: 10,bottom: 10),
-              child: TextField(
-              controller:  txtUsename,
-              decoration: InputDecoration(
-                labelText: "UserName",
-                border: OutlineInputBorder()
-              ),
-              ),
+              child: CustomTextfield(controller: txtUsename
+              , label: 'username'
+              , labelColor: Colors.blueAccent
+              , pass: false),
+
             ),
             Container(
               margin: EdgeInsets.only(top: 10,bottom: 10),
-              child: TextField(
-              controller: txtPassword,
-              obscureText: true,
-              decoration: InputDecoration(
-                labelText: "Password",
-                border: OutlineInputBorder(),
-              ),
-              
-              ),
+              child: CustomTextfield(controller: txtPassword
+              , label: 'Password'
+              , labelColor: Colors.redAccent
+              , pass: true)
             ),
             
             Container(
