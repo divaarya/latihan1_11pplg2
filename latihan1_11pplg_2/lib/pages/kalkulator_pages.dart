@@ -1,14 +1,11 @@
 
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_instance/src/extension_instance.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:get/get.dart';
 import 'package:latihan1_11pplg_2/controllers/calculator_controllers.dart';
 import 'package:latihan1_11pplg_2/custom_button.dart';
 import 'package:latihan1_11pplg_2/custom_textfield.dart';
+import 'package:latihan1_11pplg_2/routes/routes.dart';
+
 
 class CalculatorPage extends StatelessWidget {
   CalculatorPage({super.key});
@@ -100,11 +97,14 @@ class CalculatorPage extends StatelessWidget {
             const SizedBox(height: 20),
 
             CustomButton(
-              myText: "Clear",
+              myText: "Pindah",
               myTextColor: Colors.red,
-              onPressed: calculatorControllers.clear,
-              width: 120,
-              height: 50,
+              height: 35,
+              width: 150,
+              onPressed: () {
+          Get.offNamed(AppRoutes.FootballPage); 
+}
+
             ),
           ],
         ),
