@@ -1,31 +1,41 @@
-// edit_player.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../controllers/football_player_contoller.dart';
-import '../model/player_model.dart';
+import 'package:latihan1_11pplg_2/controllers/football_player_contoller.dart';
+import 'package:latihan1_11pplg_2/model/player_model.dart';
 
 class EditPlayerPage extends StatefulWidget {
-  final int index;
-  const EditPlayerPage({super.key, required this.index});
+  const EditPlayerPage({Key? key}) : super(key: key);
 
   @override
-  State<EditPlayerPage> createState() => _EditPlayerPageState();
+  _EditPlayerPageState createState() => _EditPlayerPageState();
 }
 
 class _EditPlayerPageState extends State<EditPlayerPage> {
   late TextEditingController namaController;
   late TextEditingController posisiController;
   late TextEditingController nomorController;
+  late String selectedImage;
+  late int index;
 
-  final FootballPlayerController controller = Get.find();
+  final List<String> imageOptions = [
+    "assets/mbappe.jpeg",
+    "assets/carreras.jpeg",
+    "assets/dean.jpeg",
+    "assets/curtois.jpeg",
+    "assets/trent.jpeg",
+  ];
 
   @override
   void initState() {
     super.initState();
-    final player = controller.players[widget.index];
+
+    index = Get.arguments as int; 
+    final player = Get.find<FootballPlayerController>().players[index];
+
     namaController = TextEditingController(text: player.nama);
     posisiController = TextEditingController(text: player.posisi);
     nomorController = TextEditingController(text: player.nomorPunggung.toString());
+    selectedImage = player.imageAsset;
   }
 
   @override
@@ -36,16 +46,37 @@ class _EditPlayerPageState extends State<EditPlayerPage> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
+            CircleAvatar(
+              radius: 40,
+              backgroundImage: AssetImage(selectedImage),
+            ),
+            const SizedBox(height: 16),
+
+            DropdownButtonFormField<String>(
+              value: selectedImage,
+              items: imageOptions.map((img) {
+                return DropdownMenuItem(
+                  value: img,
+                  child: Text(img.split('/').last),
+                );
+              }).toList(),
+              onChanged: (value) {
+                setState(() {
+                  selectedImage = value!;
+                });
+              },
+              decoration: const InputDecoration(labelText: "Foto"),
+            ),
+            const SizedBox(height: 16),
+
             TextField(
               controller: namaController,
               decoration: const InputDecoration(labelText: "Nama"),
             ),
-            const SizedBox(height: 10),
             TextField(
               controller: posisiController,
               decoration: const InputDecoration(labelText: "Posisi"),
             ),
-            const SizedBox(height: 10),
             TextField(
               controller: nomorController,
               decoration: const InputDecoration(labelText: "Nomor Punggung"),
@@ -54,18 +85,17 @@ class _EditPlayerPageState extends State<EditPlayerPage> {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                final updatedPlayer = Player(
+                final controller = Get.find<FootballPlayerController>();
+                controller.players[index] = Player(
                   nama: namaController.text,
                   posisi: posisiController.text,
                   nomorPunggung: int.tryParse(nomorController.text) ?? 0,
-                  imageAsset: controller.players[widget.index].imageAsset,
+                  imageAsset: selectedImage,
                 );
-
-                controller.updatePlayer(widget.index, updatedPlayer);
                 Get.back();
               },
               child: const Text("Save"),
-            ),
+            )
           ],
         ),
       ),

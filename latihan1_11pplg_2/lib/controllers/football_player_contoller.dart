@@ -25,7 +25,7 @@ class FootballPlayerController extends GetxController {
       nama: "Thibaut Courtois",
       posisi: "Goalkeeper",
       nomorPunggung: 1,
-      imageAsset: "assets/courtois.jpeg",
+      imageAsset: "assets/curtois.jpeg",
     ),
     Player(
       nama: "Trent Alexander-Arnold",
@@ -36,8 +36,7 @@ class FootballPlayerController extends GetxController {
   ].obs;
 
   void updatePlayer(int index, Player updatedPlayer) {
-  players[index] = updatedPlayer;
-  players.refresh();
-}
-
+    players[index] = updatedPlayer;
+    players.refresh();
+  }
 }
