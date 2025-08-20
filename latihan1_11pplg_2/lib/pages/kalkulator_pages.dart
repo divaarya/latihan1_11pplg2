@@ -7,6 +7,7 @@ import 'package:latihan1_11pplg_2/custom_textfield.dart';
 import 'package:latihan1_11pplg_2/routes/routes.dart';
 
 
+
 class CalculatorPage extends StatelessWidget {
   CalculatorPage({super.key});
 
@@ -102,7 +103,7 @@ class CalculatorPage extends StatelessWidget {
               height: 35,
               width: 150,
               onPressed: () {
-          Get.offNamed(AppRoutes.FootballPage); 
+          Get.offNamed(AppRoutes.players);
 }
 
             ),
